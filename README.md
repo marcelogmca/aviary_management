@@ -22,7 +22,7 @@ Buildings can be up to one kilometer distance from the main building, and so dif
 
 |Technology|Advantages|Disadvantages|
 |--|--|--|
-|Cabled Internet|Reliable|Monthly subcription; Paying the "cable pulling"|
+|Cabled Internet|Reliable|Monthly subscription; Paying the "cable pulling"|
 |Long-Range WiFi|Low-cost hardware|Vulnerable to Obstacles; Still relatively Low Range|
 |LoRaWAN|Potentially High Range|Needs expensive hardware to achieve such High Range (Antennas)|
 |Cellular-Internet|Low-cost hardware; Can use a twin sim card reducing costs significantly; Signal virtually anywhere|Monthly subscription can become expensive|
@@ -40,18 +40,18 @@ Since there is no need for a high performance server, due to the simplicity of t
 A Raspberry can be incredibly cheap and has enough performance to do well in all sorts of operations.
 After having all services of this project up and running, as well as a few other unrelated services and being accessed by a few users, it still remained at less than 60% RAM usage and less than 3% average CPU load.
 The simplest and most cost effective storage solution is having an external hard drive connected.
-Keeping in mind Raspberry itself will not have enough energy output from it's USB ports to power an external hdd, so a powered drive or usb hub is required.
+Keeping in mind Raspberry itself will not have enough energy output from it's USB ports to power an external HDD, so a powered drive or USB hub is required.
 #### Protection against power loss
-Raspberry and it's operating system, just like most systems, can have its filesystem become corrupted and sometimes have hardware damage, so it's important to always have an UPS.
+Raspberry and it's operating system, just like most systems, can have its file-system become corrupted and sometimes have hardware damage, so it's important to always have an UPS.
 In this project an UPS is powering the raspberry and the router connected to the internet, so when power fails, internet can still be accessible (as long as the ISP did not suffer from the power loss as well, which is unlikely).
-Some UPSs provide a usb/serial connection that can give status of its battery, so it's possible to create a save, quit and shutdown procedure just before losing power.
+Some UPSs provide a USB/serial connection that can give status of its battery, so it's possible to create a save, quit and shutdown procedure just before losing power.
 
 ## Software
 Raspbian (Debian) will be the operation system most suited for the raspberry, it has a lot of documentation and support online and is simple to setup.
 
 Software installed:
  - Docker - It will be used to install and manage multiple services with ease.
- - Node Js - It will do all the processing needed and can act as a web page server, its a very well-documented technology, made to support many simultaneos calls efficiently.
+ - Node Js - It will do all the processing needed and can act as a web page server, its a very well-documented technology, made to support many simultaneous calls efficiently.
 
 ### Docker services
 - Influxdb
@@ -63,7 +63,7 @@ Software installed:
 - Data Reception
 	- The data received from the sensor nodes is converted into Influxdb compatible data and sent to its service.
 - Alerts Configuration
-	- Since Grafana does not provide an easy way to change alerts specifications for the less tech savvy, a simple webservice using Grafana's API enables quick configuration of all alerts.
+	- Since Grafana does not provide an easy way to change alerts specifications for the less tech savvy, a simple web-service using Grafana's API enables quick configuration of all alerts.
 - Alert forwarding to Twillio
 	- Not available externally; Grafana sends it's alerts and this service promptly formats it and sends it to Twillio.
 
@@ -81,7 +81,7 @@ From [influxdata.com](https://www.influxdata.com/blog/why-build-a-time-series-da
 
 ### Webpage (Grafana)
 Grafana is an open source analytics and monitoring visualization platform, it presents very useful features out of the box such as integration with influxdb and ability to configure alerts.
-Instead of creating a custom website to handle data visualization, and having the risk of having a constantly changing environment that needs to be recoded, with grafana changes can be easily done with it's editor mode. New components can be added, configured, moved and resized easily.
+Instead of creating a custom website to handle data visualization, and having the risk of having a constantly changing environment that needs to be re-coded, with grafana changes can be easily done with it's editor mode. New components can be added, configured, moved and resized easily.
 ![Real time data visualization](https://i.imgur.com/hziz0rv.png)
 ![Graphed data history](https://i.imgur.com/mJGTGUB.png)
 ![Alert configuration](https://i.imgur.com/Kk4B3uX.png)
@@ -94,7 +94,7 @@ For this, Twillio.com was the choice I made, they provide a very well documented
 
 ### Backups
 It's important to not rely in just one piece of hardware, problems do happen and it's better to be prepared.
-For this, a linux **crontask** was made to send a compressed image of the database to **cloud** service as well as separate **local storage**, **every few days**. The database having such a short amount of records make this a very basic and easy to implement solution.
+For this, a Linux **crontask** was made to send a compressed image of the database to **cloud** service as well as separate **local storage**, **every few days**. The database having such a short amount of records make this a very basic and easy to implement solution.
 Installing the operating system and required software solely in raspberry's SD card can also be an easy way to make full system backups, since it's possible to save the entire image.
 
 # IoT
@@ -102,7 +102,7 @@ Every building will need to have multiple sensors which need to be connected to 
 
 In this project the following devices are used:
  - An [arduino](https://www.arduino.cc/) to read, process and send sensor data.
- - ESP8266 ESP-01, a wireless module that allows arduino to connect to wifi.
+ - ESP8266 ESP-01, a wireless module that allows arduino to connect to WiFi.
  - DHT11, a temperature and humidity sensor.
  - MLX90614, an infrared temperature sensor.
  - YF-S201, a water flow meter.
@@ -114,7 +114,7 @@ In this project the following devices are used:
 In order to connect the various sensors to the arduino device, sometimes at distances over 20m, standard cat5 ethernet cables were used.
 
 ### ESP8266 Module
-This wifi module works with arduino by communicating via serial (RX and TX connections).
+This WiFi module works with arduino by communicating via serial (RX and TX connections).
 Arduino will write AT commands to ESP8266, and will receive a reply response from the module.
 [\[List of available AT commands\]](https://www.espressif.com/sites/default/files/documentation/4a-esp8266_at_instruction_set_en.pdf) (Pay attention to firmware versions)
 
@@ -131,11 +131,11 @@ This commands are necessary to establish a connection to the server.
 [AT+CIPSEND](https://github.com/espressif/ESP8266_AT/wiki/CIPSEND) command to send data to server
 
 ### Recovering from errors
-ESP8266 module will reply with an apropriate error response when a problem occurs, and so if there is a persisting problem with the connection the device should attempt to reconnect and completely restart as last resort.
+ESP8266 module will reply with an appropriate error response when a problem occurs, and so if there is a persisting problem with the connection the device should attempt to reconnect and completely restart as last resort.
 ##### Errors observed
 The mobile routers using cellular-internet lose connection and renew their IPs every few days, and when this occurs the ESP8266s stop being able to reach the internet without being restarted.
-Sometimes due to external circumstanses data fails to be sent, this should not prompt a restart unless it persists for a long period of time.
-Due to the cheap nature of ESP-01 modules *very rarely* they would stop answearing to commands unless hardware resetted.
+Sometimes due to external circumstances data fails to be sent, this should not prompt a restart unless it persists for a long period of time.
+Due to the cheap nature of ESP-01 modules *very rarely* they would stop answering to commands unless hardware resettled.
 The sensors may fail, but the data of the still working sensors should be sent and the list of non working sensors should be potentially sent to the server.
 ##### Restarting ESP-01 in case of failure
 There are two ways of restarting the ESP-01 module, performing a software reset or an hardware reset.
@@ -144,7 +144,7 @@ The way of implementing an **hardware reset** on this module is by cutting its c
 ##### Using arduino's watchdog, the best practice
 Watchdog is a timer that runs in parallel to the arduino's core processes that implement a countdown. A range between 15ms to 8s can be configured, and when this countdown runs out the arduino will be **completely** restarted (not keeping any memory values).
 
-***But why is this countdown useful?*** This countdown can be restarted at any moment, and so it's possible to implement a system that keeps reseting the countdown (preventing the restart) while the process is running smoothly, but in case of failure letting the countdown complete.
+***But why is this countdown useful?*** This countdown can be restarted at any moment, and so it's possible to implement a system that keeps resetting the countdown (preventing the restart) while the process is running smoothly, but in case of failure letting the countdown complete.
 
 How to use the watchdog to manage failures:
 
@@ -192,20 +192,20 @@ The values captured by this module are not the most accurate or precise, but are
 The following are some the characteristics of this module:
 |Property|Value|
 |--|--|
-|Temperatue Range|0-50ºC|
+|Temperature Range|0-50ºC|
 |Humidity Range|20-90%|
-|Temperatue Precision|+-2ºC|
+|Temperature Precision|+-2ºC|
 |Humidity Precision|+-5%|
 |Polling Rate|2s|
 
 #### MLX90614 (Temperature)
 The temperature of a room is rarely uniform, especially when heating or cooling systems are at play, and so having a measure of a single point in the room may not be ideal.
-This module can average the temperature of a large surface area using infrared, with a minor caveat. Dusty enviromnents can cover the sensor, stopping it from measuring as effectively however it can still not only provide the temperature of the dust, but also of the component itself and so at least turning into a single point sensor instead of being ineffective.
+This module can average the temperature of a large surface area using infrared, with a minor caveat. Dusty environments can cover the sensor, stopping it from measuring as effectively however it can still not only provide the temperature of the dust, but also of the component itself and so at least turning into a single point sensor instead of being ineffective.
 
 #### YF-S201 (Water flow)
 This module will be connected to a water pipe, assuming it fits, it can support up to 30L/m which is plenty for this project.
 #####  Tuning
-From my experience, different flow meters will show different results out of the box for the same amount of water. A way to tune each flow meter to be as precise as possible is to funnel a fixed amount of water (say, a few litres) and tune it via code until it matches. In this case it will be used to measure total water that ran through the pipe, and so it will need to be calculated using the amount of turns made by the "propeller" inside.
+From my experience, different flow meters will show different results out of the box for the same amount of water. A way to tune each flow meter to be as precise as possible is to funnel a fixed amount of water (say, a few liters) and tune it via code until it matches. In this case it will be used to measure total water that ran through the pipe, and so it will need to be calculated using the amount of turns made by the "propeller" inside.
 
 #### MQ-135 (Air quality)
 This module can sense air quality by detecting NH3, NOx, alcohol, benzene, smoke, CO2, etc.
