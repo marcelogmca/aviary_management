@@ -36,7 +36,11 @@ It's possible to rent online servers for such a task, but for the small scale of
 
 ## Choice of hardware
 Since there is no need for a high performance server, due to the simplicity of the project, the ideal choice of hardware is a Raspberry PI.
-![Raspberry PI 3](https://www.raspberrypi.org/app/uploads/2018/03/770A5842-462x322.jpg)
+
+
+![Raspberry PI 3](https://images-na.ssl-images-amazon.com/images/I/91zSu44%2B34L._SX355_.jpg)
+
+
 A Raspberry can be incredibly cheap and has enough performance to do well in all sorts of operations.
 After having all services of this project up and running, as well as a few other unrelated services and being accessed by a few users, it still remained at less than 60% RAM usage and less than 3% average CPU load.
 The simplest and most cost effective storage solution is having an external hard drive connected.
